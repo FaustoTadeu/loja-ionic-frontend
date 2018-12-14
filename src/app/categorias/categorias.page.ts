@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController, AlertController } from '@ionic/angular';
-import { CategoriaService } from 'src/services/categoria.service';
-import { CategoriaDTO } from 'src/models/categoria.dto';
-import { API_CONFIG } from 'src/config/api.config';
+import { CategoriaService } from '../../services/categoria.service';
+import { CategoriaDTO } from '../../models/categoria.dto';
+import { API_CONFIG } from '../../config/api.config';
 
 @Component({
   selector: 'app-categorias',
