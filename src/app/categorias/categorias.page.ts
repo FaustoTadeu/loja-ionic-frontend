@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, AlertController } from '@ionic/angular';
 import { CategoriaService } from 'src/services/categoria.service';
+import { CategoriaDTO } from 'src/models/categoria.dto';
+import { API_CONFIG } from 'src/config/api.config';
 
 @Component({
   selector: 'app-categorias',
@@ -9,12 +11,16 @@ import { CategoriaService } from 'src/services/categoria.service';
 })
 export class CategoriasPage implements OnInit {
 
-  constructor(private menu: MenuController, private categoriaService: CategoriaService) { }
+
+  itensCategoria: CategoriaDTO[];
+  bucketUrl = API_CONFIG.bucketBaseUrl;
+
+  constructor(private menu: MenuController, private categoriaService: CategoriaService, private alertController: AlertController) { }
 
   ngOnInit() {
     this.categoriaService.findAll().subscribe(
       response => {
-        console.log(response);
+        this.itensCategoria = response;
       },
       error => {
         console.log(error);
@@ -23,6 +29,17 @@ export class CategoriasPage implements OnInit {
 
   ionViewWillEnter() {
     this.menu.enable(true);
+  }
+
+  async mostraCategoria(categoria: string) {
+    const alert = await this.alertController.create({
+      header: 'Categorias',
+      subHeader: 'Testando Alerts',
+      message: 'A Categoria é ' + categoria,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
 }

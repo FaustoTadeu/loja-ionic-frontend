@@ -17,6 +17,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let item of itensCategoria" (click)="mostraCategoria(item.nomeCategoria)">
+          <ion-avatar slot="start">
+            <img src="assets/images/cat{{item.idCategoria}}.png">
+          </ion-avatar>
+          <ion-label>
+            <h2>{{ item.nomeCategoria }}</h2>
+          </ion-label>
+        </ion-item>
+      </ion-list>
 
 </ion-content>

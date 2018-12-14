@@ -1,4 +1,4 @@
 export class CategoriaDTO {
-    id: string;
-    nome: string;
+    idCategoria: string;
+    nomeCategoria: string;
 }

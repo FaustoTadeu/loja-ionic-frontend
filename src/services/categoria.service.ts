@@ -9,8 +9,11 @@ export class CategoriaService {
 
     constructor(private http: HttpClient) {}
 
-    findAll (): Observable<CategoriaDTO[]> {
-        return this.http.get<CategoriaDTO[]>(`${API_CONFIG.baseUrl}/categorias/1`);
+    findById (id: number): Observable<CategoriaDTO[]> {
+        return this.http.get<CategoriaDTO[]>(`${API_CONFIG.baseUrl}/categorias/` + id);
     }
 
+    findAll (): Observable<CategoriaDTO[]> {
+        return this.http.get<CategoriaDTO[]>(`${API_CONFIG.baseUrl}/categorias`);
+    }
 }
