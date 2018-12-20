@@ -14,7 +14,7 @@ export class HomePage {
     private navCtrl: NavController,
     private menu: MenuController,
     private authService: AuthService,
-    private alertController: AlertController
+    private alertController: AlertController,
   ) { }
 
   credenciais: CredenciaisDTO = {
@@ -25,6 +25,7 @@ export class HomePage {
   login() {
     const result = this.authService.authenticate(this.credenciais);
     if (result != null) {
+      this.authService.successfulLogin(result.authorization);
       this.navCtrl.navigateRoot('categorias');
     } else {
       this.mostraModal(this.credenciais);

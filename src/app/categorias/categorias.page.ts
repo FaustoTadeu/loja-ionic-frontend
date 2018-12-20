@@ -15,7 +15,11 @@ export class CategoriasPage implements OnInit {
   itensCategoria: CategoriaDTO[];
   bucketUrl = API_CONFIG.bucketBaseUrl;
 
-  constructor(private menu: MenuController, private categoriaService: CategoriaService, private alertController: AlertController) { }
+  constructor(
+    private menu: MenuController,
+    private categoriaService: CategoriaService,
+    private alertController: AlertController
+  ) { }
 
   ngOnInit() {
     this.categoriaService.findAll().subscribe(
