@@ -35,6 +35,8 @@ export class CategoriasPage implements OnInit {
     this.menu.enable(true);
   }
 
+
+
   async mostraCategoria(categoria: string) {
     const alert = await this.alertController.create({
       header: 'Categorias',
