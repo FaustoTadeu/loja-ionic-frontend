@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -12,6 +12,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { CategoriaService } from 'src/services/categoria.service';
 import { AuthService } from 'src/services/auth.service';
 import { StorageService } from 'src/services/storage.service';
+import { HttpErrorInterceptor } from 'src/interceptors/error-interceptor';
+import { ClienteService } from 'src/services/cliente.service';
+import { HttpAuthInterceptor } from 'src/interceptors/auth-interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +31,10 @@ import { StorageService } from 'src/services/storage.service';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     CategoriaService,
     AuthService,
-    StorageService
+    StorageService,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpAuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+    ClienteService
   ],
   bootstrap: [AppComponent]
 })

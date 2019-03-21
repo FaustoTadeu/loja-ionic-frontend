@@ -21,7 +21,7 @@
     <ion-list>
         <ion-item *ngFor="let item of itensCategoria" (click)="mostraCategoria(item.nomeCategoria)">
           <ion-avatar slot="start">
-             <img [src]= "'data:image/png;base64, ' + item.imagemCategoria">
+             <img [src]= "sanitizer.bypassSecurityTrustUrl(item.imagemCategoria)">
           </ion-avatar>
           <ion-label>
             <h2>{{ item.nomeCategoria }}</h2>

@@ -17,6 +17,20 @@
       </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  {{ email }}
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-avatar class="avatar">
+          <img [src]="safeUrlImage || 'assets/images/blank-avatar.png'" />
+        </ion-avatar>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+          <h2 text-center>{{cliente?.nomeCliente}} </h2>
+          <p text-center>{{cliente?.emailCliente }}</p>
+      </ion-col>
+    </ion-row>
+ </ion-grid>
 </ion-content>

@@ -18,42 +18,16 @@ export class HomePage {
   ) { }
 
   credenciais: CredenciaisDTO = {
-    emailCredencial: '',
-    senhaCredencial: ''
+    emailCliente: '',
+    senhaCliente: ''
   };
 
   login() {
-    const result = this.authService.authenticate(this.credenciais);
-    if (result != null) {
-      this.authService.successfulLogin(result.authorization);
+    this.authService.authenticate(this.credenciais).subscribe(response => {
+      this.authService.successfulLogin(response.headers.get('Authorization'));
       this.navCtrl.navigateRoot('categorias');
-    } else {
-      this.mostraModal(this.credenciais);
-    }
-    // this.authService.authenticate(this.credenciais).subscribe(
-    //   response => {
-    //     console.log(response.headers.get('Authorization'));
-    //     this.navCtrl.navigateRoot('categorias');
-    //   },
-    //   error => {
-    //     const alert = this.alertController.create({
-    //       header: 'Login Inválido',
-    //       subHeader: 'Usuário não encontrado',
-    //       message: 'Verifique os dados inseridos e tente novamente',
-    //       buttons: ['OK']
-    //     });
-    //   });
-  }
-
-  async mostraModal(creds: CredenciaisDTO) {
-    const alert = await this.alertController.create({
-      header: 'Login Inválido',
-      subHeader: 'Usuário ' + creds.emailCredencial + ' não encontrado',
-      message: 'Verifique os dados inseridos e tente novamente',
-      buttons: ['OK']
-    });
-
-    await alert.present();
+    },
+    error => {});  
   }
 
   ionViewWillEnter() {
