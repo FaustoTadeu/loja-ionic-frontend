@@ -15,6 +15,7 @@ import { StorageService } from 'src/services/storage.service';
 import { HttpErrorInterceptor } from 'src/interceptors/error-interceptor';
 import { ClienteService } from 'src/services/cliente.service';
 import { HttpAuthInterceptor } from 'src/interceptors/auth-interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +24,8 @@ import { HttpAuthInterceptor } from 'src/interceptors/auth-interceptor';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     StatusBar,

@@ -30,8 +30,20 @@ export class HomePage {
     error => {});  
   }
 
+  signup() {
+    this.navCtrl.navigateRoot('signup')
+  }
+
   ionViewWillEnter() {
     this.menu.enable(false);
+  }
+
+  ionViewDidEnter() {
+    this.authService.refreshToken().subscribe(response => {
+      this.authService.successfulLogin(response.headers.get('Authorization'));
+      this.navCtrl.navigateRoot('categorias');
+    },
+    error => {});  
   }
 
   ionViewDidLeave() {

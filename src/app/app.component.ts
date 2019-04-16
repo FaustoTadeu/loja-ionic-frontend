@@ -12,7 +12,7 @@ import { AuthService } from 'src/services/auth.service';
 export class AppComponent {
   public appPages = [
     { title: 'Profile', url: '/profile', icon: 'person' },
-    { title: 'Categorias', url: '/categorias', icon: 'filing' },
+    { title: 'Categorias', url: '/categorias', icon: 'filing' }
   ];
 
   constructor(
