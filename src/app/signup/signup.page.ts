@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CidadeService } from 'src/services/cidade.service';
 import { EstadoService } from 'src/services/estado.service';
 import { EstadoDTO } from 'src/models/estado.dto';
 import { CidadeDTO } from 'src/models/cidade.dto';
+import { ClienteService } from 'src/services/cliente.service';
 
 
 @Component({
@@ -23,23 +24,25 @@ export class SignupPage implements OnInit {
     private navCtrl: NavController,
     private formBuilder: FormBuilder,
     private cidadeService: CidadeService,
-    private estadoService: EstadoService
+    private estadoService: EstadoService,
+    private clienteService: ClienteService,
+    private alertCtrl: AlertController
 
     ) { 
       this.formGroup = this.formBuilder.group({
-        name: ['Maria Silva', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
-        email: ['maria@gmail.com', [Validators.required, Validators.email]],
-        tipo: ['2', [Validators.required]],
-        cpfCnpj: ['94304750615', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
-        senha: ['123', [Validators.required]],
-        logradouro: ['Rua Flores', [Validators.required]],
-        numero: ['548', [Validators.required]],
-        complemento: ['', []],
-        bairro: ['Centro', []],
-        cep: ['35588-000', [Validators.required]],
-        tel1: ['3199987-8765', [Validators.required]],
-        tel2: ['', []],
-        tel3: ['', []],
+        nomeCliente: ['Maria Silva', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
+        emailCliente: ['maria@gmail.com', [Validators.required, Validators.email]],
+        tipoCliente: ['2', [Validators.required]],
+        cpfCnpjCliente: ['94304750615', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
+        senhaCliente: ['123', [Validators.required]],
+        logradouroEndereco: ['Rua Flores', [Validators.required]],
+        numeroEndereco: ['548', [Validators.required]],
+        complementoEndereco: ['', []],
+        bairroEndereco: ['Centro', []],
+        cepEndereco: ['35588-000', [Validators.required]],
+        telefoneUm: ['3199987-8765', [Validators.required]],
+        telefoneDois: ['', []],
+        telefoneTres: ['', []],
         estadoId: [null, [Validators.required]],
         cidadeId: [null, [Validators.required]] 
       })
@@ -75,7 +78,34 @@ export class SignupPage implements OnInit {
   }
 
   signupUser() {
-    console.log("passei");
+
+    console.log(this.formGroup.value);
+    this.clienteService.insert(this.formGroup.value)
+    .subscribe (response => {
+      this.showInsertOk();
+    },
+    error => {
+      this.falhaInsert();
+
+    });
+  }
+
+  async showInsertOk() {
+    const alert = await this.alertCtrl.create({
+        header: 'Sucesso',
+        message: 'Cadastro efetuado com sucesso',
+        buttons: ['OK']
+      });
+      await alert.present();
+  }
+
+  async falhaInsert() {
+    const alert = await this.alertCtrl.create({
+        header: 'Erro',
+        message: 'Cadastro não efetuado',
+        buttons: ['OK']
+      });
+      await alert.present();
   }
 
   voltar() {

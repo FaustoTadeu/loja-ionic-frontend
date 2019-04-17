@@ -15,4 +15,15 @@ export class ClienteService {
         return this.httpCliente.get<ClienteDTO> (
             `${API_CONFIG.baseUrl}/clientes/email?value=${email}`);
     }
+
+    insert(cliente: ClienteDTO) {
+        return this.httpCliente.post (
+            `${API_CONFIG.baseUrl}/clientes`,
+            cliente,
+            {
+                observe: 'response',
+                responseType: 'text' 
+            } 
+        );
+    }
 }

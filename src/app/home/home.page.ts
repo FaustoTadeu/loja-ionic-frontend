@@ -13,8 +13,7 @@ export class HomePage {
   constructor(
     private navCtrl: NavController,
     private menu: MenuController,
-    private authService: AuthService,
-    private alertController: AlertController,
+    private authService: AuthService
   ) { }
 
   credenciais: CredenciaisDTO = {
